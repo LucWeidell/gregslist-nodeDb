@@ -1,22 +1,39 @@
+import { dbContext } from '../db/DbContext'
+import { BadRequest } from '../utils/Errors'
+
 class CarsService {
   async getAll() {
-    throw new Error('Method not implemented.')
+    const cars = await dbContext.Cars.find()
+    return cars
   }
 
   async getById(id) {
-    throw new Error('Method not implemented.')
+    const car = await dbContext.Cars.findById(id)
+    if (!car) {
+      throw new BadRequest('Invalid ID')
+    }
+    return car
   }
 
   async create(body) {
-    throw new Error('Method not implemented.')
+    const car = await dbContext.Cars.create(body)
+    return car
   }
 
   async edit(body) {
-    throw new Error('Method not implemented.')
+    const car = await dbContext.Cars.findByIdAndUpdate(body.id, body, { new: true, runValidators: true })
+    if (!car) {
+      throw new BadRequest('Invalid ID')
+    }
+    return car
   }
 
   async delete(id) {
-    throw new Error('Method not implemented.')
+    const car = await dbContext.Cars.findByIdAndDelete(id)
+    if (!car) {
+      throw new BadRequest('Invalid ID')
+    }
+    return car
   }
 }
 

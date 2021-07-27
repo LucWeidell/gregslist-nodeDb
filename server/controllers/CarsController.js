@@ -37,7 +37,7 @@ export class CarsController extends BaseController {
   async getById(req, res, next) {
     try {
       const car = await carsService.getById(req.params.id)
-      req.send(car)
+      res.send(car)
     } catch (error) {
       next(error)
     }
@@ -68,7 +68,7 @@ export class CarsController extends BaseController {
     try {
       req.body.id = req.params.id
       const car = await carsService.edit(req.body)
-      req.send(car)
+      res.send(car)
     } catch (error) {
       next(error)
     }
@@ -83,7 +83,7 @@ export class CarsController extends BaseController {
   async delete(req, res, next) {
     try {
       await carsService.delete(req.params.id)
-      req.send({ message: 'Successfully Deleted Car' })
+      res.send({ message: 'Successfully Deleted Car' })
     } catch (error) {
       next(error)
     }
